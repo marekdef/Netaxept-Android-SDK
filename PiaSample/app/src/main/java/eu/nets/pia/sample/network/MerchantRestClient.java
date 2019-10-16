@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import eu.nets.pia.sample.RegisterPaymentHandlerImpl;
@@ -22,6 +23,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * MIT License
@@ -72,7 +74,8 @@ public class MerchantRestClient {
         String BASE_URL = getBaseUrl(PiaSampleSharedPreferences.isPiaTestMode());
 
         Retrofit retrofit = new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().serializeNulls().create()))
+//            .addConverterFactory(ScalarsConverterFactory.create())
                 .baseUrl(BASE_URL)
                 .build();
 
