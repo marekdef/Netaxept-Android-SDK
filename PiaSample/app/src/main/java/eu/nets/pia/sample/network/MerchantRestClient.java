@@ -1,29 +1,27 @@
 package eu.nets.pia.sample.network;
 
 import android.util.Log;
-
 import com.google.gson.Gson;
-
-import java.io.IOException;
-import java.util.Date;
-import java.util.concurrent.LinkedBlockingQueue;
-
+import com.google.gson.GsonBuilder;
 import eu.nets.pia.sample.RegisterPaymentHandlerImpl;
 import eu.nets.pia.sample.data.PaymentFlowCache;
 import eu.nets.pia.sample.data.PaymentFlowState;
 import eu.nets.pia.sample.data.PiaSampleSharedPreferences;
 import eu.nets.pia.sample.network.model.ErrorResponse;
+import eu.nets.pia.sample.network.model.Operation;
 import eu.nets.pia.sample.network.model.PaymentCommitResponse;
 import eu.nets.pia.sample.network.model.PaymentMethodsResponse;
 import eu.nets.pia.sample.network.model.PaymentRegisterRequest;
 import eu.nets.pia.sample.network.model.PaymentRegisterResponse;
+import eu.nets.pia.sample.network.model.ProcessingOption;
+import java.io.IOException;
+import java.util.concurrent.LinkedBlockingQueue;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * MIT License
@@ -161,7 +159,11 @@ public class MerchantRestClient {
     public void commitPayment(String transactionId) {
         Log.d(TAG, "[commitPayment] [transactionId:" + transactionId + " merchantId:" + getMerchantId() + "]");
         mPaymentCache.setState(PaymentFlowState.SENDING_COMMIT_PAYMENT_CALL);
-        mMerchantBackendAPI.commitPayment(transactionId, getMerchantId(), "{}").enqueue(new Callback<PaymentCommitResponse>() {
+
+        ProcessingOption processingOption = new ProcessingOption();
+        processingOption.setOperation(Operation.COMMIT);
+        mMerchantBackendAPI.commitPayment(transactionId, getMerchantId(),
+            processingOption).enqueue(new Callback<PaymentCommitResponse>() {
             @Override
             public void onResponse(Call<PaymentCommitResponse> call, Response<PaymentCommitResponse> response) {
                 mPaymentCache.setState(PaymentFlowState.COMMIT_PAYMENT_CALL_FINISHED);

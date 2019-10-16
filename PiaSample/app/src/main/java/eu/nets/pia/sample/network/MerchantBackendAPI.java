@@ -4,11 +4,11 @@ import eu.nets.pia.sample.network.model.PaymentCommitResponse;
 import eu.nets.pia.sample.network.model.PaymentMethodsResponse;
 import eu.nets.pia.sample.network.model.PaymentRegisterRequest;
 import eu.nets.pia.sample.network.model.PaymentRegisterResponse;
+import eu.nets.pia.sample.network.model.ProcessingOption;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -54,7 +54,7 @@ public interface MerchantBackendAPI {
     Call<PaymentCommitResponse> commitPayment(
             @Path("transactionId") String transactionId,
             @Path("merchantId") String merchantId,
-            @Body String emptyBody
+            @Body ProcessingOption processingOption
     );
 
     @PUT("v2/payment/{transactionId}/commit")
