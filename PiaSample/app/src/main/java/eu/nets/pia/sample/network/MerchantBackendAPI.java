@@ -50,7 +50,7 @@ public interface MerchantBackendAPI {
             @Body PaymentRegisterRequest request
     );
 
-    @PUT("v2/payment/{merchantId}/{transactionId}/commit")
+    @PUT("v2/payment/{merchantId}/{transactionId}")
     Call<PaymentCommitResponse> commitPayment(
             @Path("transactionId") String transactionId,
             @Path("merchantId") String merchantId,
