@@ -46,6 +46,7 @@ import eu.nets.pia.sample.ui.fragment.CheckoutFragment;
 import eu.nets.pia.sample.ui.fragment.FragmentCallback;
 import eu.nets.pia.sample.ui.fragment.PaymentMethodsFragment;
 import eu.nets.pia.ui.main.PiaActivity;
+import java.util.UUID;
 
 /**
  * MIT License
@@ -70,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements MerchantRestClien
         FragmentCallback {
 
     public static final String TAG = MainActivity.class.getSimpleName();
-    private static final String ORDER_NUMBER = "PiaSDK-Android";
+    private static final String ORDER_NUMBER = "marek.defecinski-";
 
     @BindView(R.id.spinner_holder)
     protected RelativeLayout mProgressBar;
@@ -644,7 +645,7 @@ public class MainActivity extends AppCompatActivity implements MerchantRestClien
 
         PaymentRegisterRequest paymentRequest = new PaymentRegisterRequest();
         paymentRequest.setAmount(amount);
-        paymentRequest.setOrderNumber(ORDER_NUMBER);
+        paymentRequest.setOrderNumber((ORDER_NUMBER + UUID.randomUUID().toString()).substring(32));
         paymentRequest.setCustomerId(PiaSampleSharedPreferences.getCustomerId());
 
         //specify the token id , if a token payment method selected

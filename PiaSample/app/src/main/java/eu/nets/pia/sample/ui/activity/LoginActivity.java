@@ -58,6 +58,7 @@ import eu.nets.pia.sample.ui.adapter.LanguageAdapter;
 import eu.nets.pia.sample.ui.data.PaymentMethod;
 import eu.nets.pia.sample.ui.widget.CustomToolbar;
 import eu.nets.pia.ui.main.PiaActivity;
+import java.util.UUID;
 
 /**
  * MIT License
@@ -112,7 +113,7 @@ public class LoginActivity extends AppCompatActivity implements MerchantRestClie
     @BindView(R.id.spinner_holder)
     protected RelativeLayout mProgressBar;
 
-    private static final String ORDER_NUMBER = "PiaSDK-Android";
+    private static final String ORDER_NUMBER = "marek.defecinski-";
     private static final String DEFAULT_LANGUAGE = "Select";
     private static PiaLanguage currentSelection;
 
@@ -406,7 +407,7 @@ public class LoginActivity extends AppCompatActivity implements MerchantRestClie
 
         PaymentRegisterRequest paymentRequest = new PaymentRegisterRequest();
         paymentRequest.setAmount(amount);
-        paymentRequest.setOrderNumber(ORDER_NUMBER);
+        paymentRequest.setOrderNumber((ORDER_NUMBER + UUID.randomUUID().toString()).substring(32));
         paymentRequest.setCustomerId(PiaSampleSharedPreferences.getCustomerId());
 
         return paymentRequest;
