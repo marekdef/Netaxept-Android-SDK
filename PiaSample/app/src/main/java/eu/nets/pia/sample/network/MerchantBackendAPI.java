@@ -35,55 +35,55 @@ import retrofit2.http.Query;
 
 public interface MerchantBackendAPI {
 
-    @POST("v1/payment/{merchantId}/register")
-    @Headers({"Content-Type: application/vnd.nets.pia.v1.2+json",
-            "Accept: application/vnd.nets.pia.v1.2+json"})
+    @POST("v2/payment/{merchantId}/register")
+//    @Headers({"Content-Type: application/vnd.nets.pia.v1.2+json",
+//            "Accept: application/vnd.nets.pia.v1.2+json"})
     Call<PaymentRegisterResponse> registerPayment(
             @Body PaymentRegisterRequest request,
             @Path("merchantId") String merchantId
     );
 
-    @POST("v1/payment/register")
-    @Headers({"Content-Type: application/vnd.nets.pia.v1.2+json",
-            "Accept: application/vnd.nets.pia.v1.2+json"})
+    @POST("v2/payment/register")
+//    @Headers({"Content-Type: application/vnd.nets.pia.v1.2+json",
+//            "Accept: application/vnd.nets.pia.v1.2+json"})
     Call<PaymentRegisterResponse> registerPayment(
             @Body PaymentRegisterRequest request
     );
 
-    @PUT("v1/payment/{merchantId}/{transactionId}/commit")
+    @PUT("v2/payment/{merchantId}/{transactionId}/commit")
     Call<PaymentCommitResponse> commitPayment(
             @Path("transactionId") String transactionId,
             @Path("merchantId") String merchantId,
             @Body String emptyBody
     );
 
-    @PUT("v1/payment/{transactionId}/commit")
+    @PUT("v2/payment/{transactionId}/commit")
     Call<PaymentCommitResponse> commitPayment(
             @Path("transactionId") String transactionId
     );
 
-    @PUT("v1/payment/{merchantId}/{transactionId}/storecard")
+    @PUT("v2/payment/{merchantId}/{transactionId}/storecard")
     Call<PaymentCommitResponse> verifyPayment(
             @Path("transactionId") String transactionId,
             @Path("merchantId") String merchantId,
             @Body String emptyBody
     );
 
-    @PUT("v1/payment/{transactionId}/storecard")
+    @PUT("v2/payment/{transactionId}/storecard")
     Call<PaymentCommitResponse> verifyPayment(
             @Path("transactionId") String transactionId
     );
 
-    @GET("v1/payment/methods")
+    @GET("v2/payment/methods")
     Call<PaymentMethodsResponse> getPaymentMethods(@Query("consumerId") String consumerId);
 
-    @DELETE("v1/payment/{merchantId}/{transactionId}/rollback")
+    @DELETE("v2/payment/{merchantId}/{transactionId}/rollback")
     Call<String> transactionRollback(
             @Path("transactionId") String transactionId,
             @Path("merchantId") String merchantId
     );
 
-    @DELETE("v1/payment/{transactionId}/rollback")
+    @DELETE("v2/payment/{transactionId}/rollback")
     Call<String> transactionRollback(
             @Path("transactionId") String transactionId
     );
